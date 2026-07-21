@@ -186,9 +186,7 @@ svg { width: 1.2em; height: 1.2em; flex: none; }
    ============================================================ */
 .hero {
   position: relative;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.35)),
-    url("assets/hero-screen.jpg") center / cover no-repeat;
+  background: url("assets/hero-screen.jpg") center / cover no-repeat;
   color: var(--ink);
   overflow: hidden;
 }
