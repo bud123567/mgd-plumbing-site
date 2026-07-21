@@ -186,7 +186,7 @@ svg { width: 1.2em; height: 1.2em; flex: none; }
    ============================================================ */
 .hero {
   position: relative;
-  background: url("assets/hero-screen.jpg") center / cover no-repeat;
+  background: url("assets/gallery-hero.jpg") center / cover no-repeat;
   color: var(--ink);
   overflow: hidden;
 }
