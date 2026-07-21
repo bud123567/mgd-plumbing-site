@@ -131,3 +131,45 @@ form.addEventListener('submit', (e) => {
   form.reset();
   formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 });
+
+// ---------- Studio watermark (Welsch Marketing) ----------
+// Self-healing overlay: re-created if deleted, hidden, or restyled.
+(function () {
+  const TILE =
+    "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='320'%3E%3Cg%20fill='%23718096'%20fill-opacity='0.15'%20font-family='Arial,sans-serif'%20font-size='22'%20font-weight='700'%3E%3Ctext%20x='40'%20y='120'%20transform='rotate(-24%20240%20160)'%3EBUILT%20BY%20WELSCH%20MARKETING%3C/text%3E%3Ctext%20x='150'%20y='260'%20transform='rotate(-24%20240%20160)'%3EBUILT%20BY%20WELSCH%20MARKETING%3C/text%3E%3C/g%3E%3C/svg%3E";
+
+  function build() {
+    const el = document.createElement('div');
+    el.setAttribute('data-wm', '');
+    el.style.cssText =
+      'position:fixed;top:0;right:0;bottom:0;left:0;z-index:2147483647;' +
+      'pointer-events:none;background-image:url("' + TILE + '");background-repeat:repeat;';
+    return el;
+  }
+
+  function ensure() {
+    const el = document.querySelector('div[data-wm]');
+    if (el) {
+      const cs = getComputedStyle(el);
+      const intact =
+        el.parentElement === document.body &&
+        cs.position === 'fixed' &&
+        cs.display !== 'none' &&
+        cs.visibility === 'visible' &&
+        parseFloat(cs.opacity) > 0.9 &&
+        cs.backgroundImage !== 'none' &&
+        cs.pointerEvents === 'none';
+      if (intact) return;
+      el.remove();
+    }
+    document.body.appendChild(build());
+  }
+
+  ensure();
+  new MutationObserver(ensure).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+  });
+  setInterval(ensure, 2000);
+})();
